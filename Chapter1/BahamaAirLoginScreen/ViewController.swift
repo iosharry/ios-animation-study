@@ -29,90 +29,88 @@ func delay(_ seconds: Double, completion: @escaping ()->Void) {
 
 class ViewController: UIViewController {
   
-  // MARK: IBOutlets
-  @IBOutlet var loginButton: UIButton!
-  @IBOutlet var heading: UILabel!
-  @IBOutlet var username: UITextField!
-  @IBOutlet var password: UITextField!
+    // MARK: IBOutlets
+    @IBOutlet var loginButton: UIButton!
+    @IBOutlet var heading: UILabel!
+    @IBOutlet var username: UITextField!
+    @IBOutlet var password: UITextField!
   
-  @IBOutlet var cloud1: UIImageView!
-  @IBOutlet var cloud2: UIImageView!
-  @IBOutlet var cloud3: UIImageView!
-  @IBOutlet var cloud4: UIImageView!
+    @IBOutlet var cloud1: UIImageView!
+    @IBOutlet var cloud2: UIImageView!
+    @IBOutlet var cloud3: UIImageView!
+    @IBOutlet var cloud4: UIImageView!
   
-  // MARK: further UI
-  let spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-  let status = UIImageView(image: UIImage(named: "banner"))
-  let label = UILabel()
-  let messages = ["Connecting ...", "Authorizing ...", "Sending credentials ...", "Failed"]
+    // MARK: further UI
+    let spinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    let status = UIImageView(image: UIImage(named: "banner"))
+    let label = UILabel()
+    let messages = ["Connecting ...", "Authorizing ...", "Sending credentials ...", "Failed"]
   
-  var statusPosition = CGPoint.zero
+    var statusPosition = CGPoint.zero
   
-  // MARK: view controller methods
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    // MARK: view controller methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
     
-    //set up the UI
-    loginButton.layer.cornerRadius = 8.0
-    loginButton.layer.masksToBounds = true
+        //set up the UI
+        loginButton.layer.cornerRadius = 8.0
+        loginButton.layer.masksToBounds = true
     
-    spinner.frame = CGRect(x: -20.0, y: 6.0, width: 20.0, height: 20.0)
-    spinner.startAnimating()
-    spinner.alpha = 0.0
-    loginButton.addSubview(spinner)
+        spinner.frame = CGRect(x: -20.0, y: 6.0, width: 20.0, height: 20.0)
+        spinner.startAnimating()
+        spinner.alpha = 0.0
+        loginButton.addSubview(spinner)
     
-    status.isHidden = true
-    status.center = loginButton.center
-    view.addSubview(status)
+        status.isHidden = true
+        status.center = loginButton.center
+        view.addSubview(status)
     
-    label.frame = CGRect(x: 0.0, y: 0.0, width: status.frame.size.width, height: status.frame.size.height)
-    label.font = UIFont(name: "HelveticaNeue", size: 18.0)
-    label.textColor = UIColor(red: 0.89, green: 0.38, blue: 0.0, alpha: 1.0)
-    label.textAlignment = .center
-    status.addSubview(label)
-  }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    
-    heading.center.x -= view.bounds.width
-    username.center.x -= view.bounds.width
-    password.center.x -= view.bounds.width
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    
-    /**
-     *  withDuration : 애니메이션 지속 시간
-     *  delay        : UIKit이 애니메이션을 시작 전 대기 시간(초)
-     *  options      : 애니메이션에 관한 사용자가 설정할 수 있는 옵션
-     *  completion   : 애니메이션이 완료될 때 (최종 정리 작업을 수행하거나, 이 후 애니메이션을 수행에 주로 사용)
-     */
-    
-    UIView.animate(withDuration: 0.5) {
-        self.heading.center.x += self.view.bounds.width
+        label.frame = CGRect(x: 0.0, y: 0.0, width: status.frame.size.width, height: status.frame.size.height)
+        label.font = UIFont(name: "HelveticaNeue", size: 18.0)
+        label.textColor = UIColor(red: 0.89, green: 0.38, blue: 0.0, alpha: 1.0)
+        label.textAlignment = .center
+        status.addSubview(label)
     }
-    
-    UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
-        self.username.center.x += self.view.bounds.width
-    }, completion: nil)
-    
-    UIView.animate(withDuration: 0.5, delay: 0.4, options: [], animations: {
-        self.password.center.x += self.view.bounds.width
-    }, completion: nil)
-  }
   
-  // MARK: further methods
-  @IBAction func login() {
-    view.endEditing(true)
-  }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
+        heading.center.x -= view.bounds.width
+        username.center.x -= view.bounds.width
+        password.center.x -= view.bounds.width
+    }
   
-  // MARK: UITextFieldDelegate
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    let nextField = (textField === username) ? password : username
-    nextField?.becomeFirstResponder()
-    return true
-  }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    
+        /**
+         *  withDuration : 애니메이션 지속 시간
+         *  delay        : UIKit이 애니메이션을 시작 전 대기 시간(초)
+         *  options      : 애니메이션에 관한 사용자가 설정할 수 있는 옵션
+         *  completion   : 애니메이션이 완료될 때 (최종 정리 작업을 수행하거나, 이 후 애니메이션을 수행에 주로 사용)
+         */
+        UIView.animate(withDuration: 0.5) {
+            self.heading.center.x += self.view.bounds.width
+        }
+    
+        UIView.animate(withDuration: 0.5, delay: 0.3, options: [], animations: {
+            self.username.center.x += self.view.bounds.width
+        }, completion: nil)
+    
+        UIView.animate(withDuration: 0.5, delay: 0.4, options: [], animations: {
+            self.password.center.x += self.view.bounds.width
+        }, completion: nil)
+    }
+  
+    // MARK: further methods
+    @IBAction func login() {
+        view.endEditing(true)
+    }
+  
+    // MARK: UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextField = (textField === username) ? password : username
+        nextField?.becomeFirstResponder()
+        return true
+    }
 }
